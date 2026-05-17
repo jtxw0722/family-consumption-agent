@@ -9,6 +9,14 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class ProductNormalizer {
+    /**
+     * 将原始商品名称归一化为稳定的统计名称。
+     *
+     * <p>当前版本使用确定性关键词规则处理常见家庭消耗品，避免同类商品因规格或标题差异被拆成多个统计对象。</p>
+     *
+     * @param productName 原始商品名称
+     * @return 归一化商品名称
+     */
     public String normalize(String productName) {
         if (productName == null || productName.isBlank()) {
             return "未命名商品";

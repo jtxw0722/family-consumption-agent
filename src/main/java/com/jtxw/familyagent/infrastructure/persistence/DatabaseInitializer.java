@@ -33,6 +33,12 @@ public class DatabaseInitializer implements ApplicationRunner {
         initialize();
     }
 
+    /**
+     * 初始化本地运行目录和 SQLite 表结构。
+     *
+     * <p>该方法会在应用启动时自动执行，也会被 CLI 和应用服务显式调用，
+     * 确保 REST Tool API 启动后即可直接使用。</p>
+     */
     public synchronized void initialize() {
         try {
             ensureRuntimeDirectories();

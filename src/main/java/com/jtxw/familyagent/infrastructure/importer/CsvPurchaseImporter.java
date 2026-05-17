@@ -21,6 +21,14 @@ import java.util.List;
  */
 @Component
 public class CsvPurchaseImporter {
+    /**
+     * 读取本地 CSV 订单文件并转换为原始订单记录。
+     *
+     * <p>该导入器只负责文件解析和字段读取，不做商品归一化、单位价格计算或数据库写入。</p>
+     *
+     * @param file 本地 CSV 文件路径
+     * @return 原始订单记录列表
+     */
     public List<RawPurchaseRecord> importFile(Path file) {
         try (Reader reader = Files.newBufferedReader(file, StandardCharsets.UTF_8);
              CSVParser parser = CSVFormat.DEFAULT.builder()

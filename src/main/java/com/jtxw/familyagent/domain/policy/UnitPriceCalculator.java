@@ -9,6 +9,13 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class UnitPriceCalculator {
+    /**
+     * 根据实付金额和数量计算可比较的单位价格。
+     *
+     * @param totalAmount 实付总金额
+     * @param quantity    商品数量，必须大于 0
+     * @return 单位价格
+     */
     public double calculate(double totalAmount, double quantity) {
         if (quantity <= 0) {
             throw new IllegalArgumentException("数量必须大于 0");

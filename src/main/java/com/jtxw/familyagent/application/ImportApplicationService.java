@@ -47,6 +47,15 @@ public class ImportApplicationService {
         this.reviewItemRepository = reviewItemRepository;
     }
 
+    /**
+     * 导入订单文件并写入本地数据库。
+     *
+     * <p>导入流程包括：读取 CSV 文件、商品名称归一化、单位价格计算、订单明细入库，
+     * 并将实付金额为 0 的记录加入待复核列表。</p>
+     *
+     * @param file 本地订单 CSV 文件路径
+     * @return 导入结果
+     */
     public ImportResult importCsv(Path file) {
         databaseInitializer.initialize();
         long batchId = importBatchRepository.create(file.toString());

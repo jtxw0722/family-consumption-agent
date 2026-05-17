@@ -25,6 +25,14 @@ public class MarkdownReportWriter {
         this.reportsDir = Path.of(reportsDir);
     }
 
+    /**
+     * 将月度消费统计写入本地 Markdown 报告文件。
+     *
+     * @param month              报告月份，格式为 yyyy-MM
+     * @param records            已按正式统计口径筛选出的消费记录
+     * @param pendingReviewCount 当前待复核记录数
+     * @return 报告文件路径
+     */
     public String write(String month, List<PurchaseRecord> records, int pendingReviewCount) {
         try {
             Files.createDirectories(reportsDir);

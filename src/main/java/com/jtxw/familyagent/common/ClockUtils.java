@@ -11,8 +11,14 @@ import java.time.format.DateTimeFormatter;
 public final class ClockUtils {
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
 
-    private ClockUtils() {}
+    private ClockUtils() {
+    }
 
+    /**
+     * 返回本地当前时间字符串，供数据库审计字段使用。
+     *
+     * @return ISO 本地日期时间字符串
+     */
     public static String nowText() {
         return LocalDateTime.now().format(FORMATTER);
     }

@@ -14,6 +14,20 @@ import java.util.List;
  */
 @Component
 public class PriceDecisionPolicy {
+    /**
+     * 根据当前价格和历史单位价格样本判断价格状态。
+     *
+     * <p>该方法只基于结构化历史数据和确定性规则进行判断，不依赖 LLM 生成价格结论。
+     * 当前规则以历史平均单价为基准，明显低于均值判定为好价，明显高于均值判定为偏贵。</p>
+     *
+     * @param productName    原始商品名称
+     * @param normalizedName 归一化商品名称
+     * @param price          当前总价
+     * @param quantity       当前商品数量
+     * @param unit           数量单位
+     * @param history        历史单位价格样本
+     * @return 价格判断结果
+     */
     public PriceDecisionResult decide(String productName, String normalizedName, double price, double quantity, String unit, List<Double> history) {
         if (quantity <= 0) {
             throw new IllegalArgumentException("数量必须大于 0");

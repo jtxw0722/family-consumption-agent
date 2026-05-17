@@ -21,14 +21,20 @@ public class PurchaseRecordRepository {
         this.jdbcTemplate = jdbcTemplate;
     }
 
+    /**
+     * 保存标准化后的消费记录。
+     *
+     * @param record 消费记录
+     * @return 新增记录 ID
+     */
     public long save(PurchaseRecord record) {
         jdbcTemplate.update("""
-                INSERT INTO purchase_records(
-                    batch_id, order_time, platform, owner, product_name, normalized_name, sku,
-                    category, sub_category, quantity, unit, total_amount, unit_price, currency,
-                    decision, is_duplicate, dedupe_status, source_file, created_at
-                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-                """,
+                        INSERT INTO purchase_records(
+                            batch_id, order_time, platform, owner, product_name, normalized_name, sku,
+                            category, sub_category, quantity, unit, total_amount, unit_price, currency,
+                            decision, is_duplicate, dedupe_status, source_file, created_at
+                        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                        """,
                 record.batchId(), record.orderTime(), record.platform(), record.owner(), record.productName(),
                 record.normalizedName(), record.sku(), record.category(), record.subCategory(), record.quantity(),
                 record.unit(), record.totalAmount(), record.unitPrice(), record.currency(), record.decision(),
@@ -36,6 +42,15 @@ public class PurchaseRecordRepository {
         return jdbcTemplate.queryForObject("SELECT last_insert_rowid()", Long.class);
     }
 
+    /**
+     * 查询指定商品的历史有效单价样本。
+     *
+     * <p>默认只返回正式统计口径内的记录：
+     * decision = include，is_duplicate = 0，dedupe_status = unique。</p>
+     *
+     * @param normalizedName 归一化商品名称
+     * @return 历史单位价格列表
+     */
     public List<Double> listUnitPrices(String normalizedName) {
         return jdbcTemplate.queryForList("""
                 SELECT unit_price FROM purchase_records
@@ -48,10 +63,26 @@ public class PurchaseRecordRepository {
                 """, Double.class, normalizedName);
     }
 
+    /**
+     * 更新消费记录的统计决策。
+     *
+     * @param id       消费记录 ID
+     * @param decision 统计决策，通常为 include 或 exclude
+     * @return 更新记录数
+     */
     public int updateDecision(long id, String decision) {
         return jdbcTemplate.update("UPDATE purchase_records SET decision = ? WHERE id = ?", decision, id);
     }
 
+    /**
+     * 查询指定月份内纳入正式统计的消费记录。
+     *
+     * <p>默认只返回 decision = include、is_duplicate = 0、dedupe_status = unique，
+     * 且实付金额大于 0 的记录。</p>
+     *
+     * @param month 月份，格式为 yyyy-MM
+     * @return 月度有效消费记录列表
+     */
     public List<PurchaseRecord> listIncludedByMonth(String month) {
         return jdbcTemplate.query("""
                 SELECT * FROM purchase_records

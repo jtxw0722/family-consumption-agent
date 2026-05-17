@@ -6,25 +6,85 @@ package com.jtxw.familyagent.domain.model;
  * @Description: 标准化后的消费记录实体，表示可持久化和统计的订单明细。
  */
 public class PurchaseRecord {
+    /**
+     * 消费记录主键 ID
+     */
     private final Long id;
+    /**
+     * 所属导入批次 ID
+     */
     private final Long batchId;
+    /**
+     * 订单发生时间
+     */
     private final String orderTime;
+    /**
+     * 购买平台
+     */
     private final String platform;
+    /**
+     * 家庭成员或数据归属人标识
+     */
     private final String owner;
+    /**
+     * 原始商品名称
+     */
     private final String productName;
+    /**
+     * 归一化后的商品名称
+     */
     private final String normalizedName;
+    /**
+     * 商品规格或 SKU 文本
+     */
     private final String sku;
+    /**
+     * 一级消费分类
+     */
     private final String category;
+    /**
+     * 二级消费分类
+     */
     private final String subCategory;
+    /**
+     * 商品数量
+     */
     private final Double quantity;
+    /**
+     * 商品数量单位
+     */
     private final String unit;
+    /**
+     * 实付总金额
+     */
     private final Double totalAmount;
+    /**
+     * 按数量和单位折算后的单位价格
+     */
     private final Double unitPrice;
+    /**
+     * 交易币种
+     */
     private final String currency;
+    /**
+     * 统计决策，include 表示纳入统计，exclude 表示排除
+     */
     private final String decision;
+    /**
+     * 是否被判定为重复订单
+     */
     private final boolean duplicate;
+    /**
+     * 去重状态，例如 unique 或 duplicate
+     */
     private final String dedupeStatus;
+    /**
+     * 来源文件路径
+     */
     private final String sourceFile;
+    /**
+     * 记录创建时间
+     */
     private final String createdAt;
 
     public PurchaseRecord(Long id,

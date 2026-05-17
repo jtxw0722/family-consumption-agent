@@ -32,6 +32,14 @@ public class ReportApplicationService {
         this.markdownReportWriter = markdownReportWriter;
     }
 
+    /**
+     * 生成指定月份的本地消费报告。
+     *
+     * <p>报告只统计正式统计口径内的消费记录，并附带当前待复核记录数量。</p>
+     *
+     * @param month 报告月份，格式为 yyyy-MM
+     * @return 月度报告生成结果
+     */
     public MonthlyReportResult generateMonthlyReport(String month) {
         databaseInitializer.initialize();
         List<PurchaseRecord> records = purchaseRecordRepository.listIncludedByMonth(month);

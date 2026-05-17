@@ -31,6 +31,18 @@ public class PriceAnalysisApplicationService {
         this.priceDecisionPolicy = priceDecisionPolicy;
     }
 
+    /**
+     * 比较当前商品价格与历史有效价格样本。
+     *
+     * <p>该方法先归一化商品名称，再查询正式统计口径内的历史单价，
+     * 最后使用确定性价格规则生成判断结果。</p>
+     *
+     * @param productName 原始商品名称
+     * @param price       当前总价
+     * @param quantity    当前商品数量
+     * @param unit        数量单位
+     * @return 价格判断结果
+     */
     public PriceDecisionResult comparePrice(String productName, double price, double quantity, String unit) {
         databaseInitializer.initialize();
         String normalizedName = productNormalizer.normalize(productName);

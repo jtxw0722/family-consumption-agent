@@ -29,11 +29,27 @@ public class ReviewApplicationService {
         this.reviewItemRepository = reviewItemRepository;
     }
 
+    /**
+     * 查询当前待处理的人工复核项。
+     *
+     * @return 待复核记录列表
+     */
     public List<ReviewItem> listPending() {
         databaseInitializer.initialize();
         return reviewItemRepository.listPending();
     }
 
+    /**
+     * 应用人工复核结果并同步更新消费记录统计决策。
+     *
+     * <p>目前支持 include 和 exclude 两种动作。复核项只能处理一次，
+     * 成功处理后状态会变为 resolved。</p>
+     *
+     * @param reviewId 复核项 ID
+     * @param action   复核动作，取值 include 或 exclude
+     * @param note     人工复核备注
+     * @return 复核应用结果
+     */
     public ReviewApplyResult apply(long reviewId, String action, String note) {
         databaseInitializer.initialize();
         String normalizedAction = normalizeAction(action);

@@ -5,16 +5,161 @@ package com.jtxw.familyagent.domain.model;
  * @Date: 2026/05/11/01:05
  * @Description: CSV 原始订单记录对象，保留导入阶段解析出的基础字段。
  */
-public record RawPurchaseRecord(
-        String orderTime,
-        String platform,
-        String owner,
-        String productName,
-        String sku,
-        String category,
-        String subCategory,
-        Double quantity,
-        String unit,
-        Double totalAmount,
-        String currency
-) {}
+public class RawPurchaseRecord {
+    /**
+     * 订单发生时间，来自导入文件
+     */
+    private final String orderTime;
+    /**
+     * 购买平台，例如 taobao、jd
+     */
+    private final String platform;
+    /**
+     * 家庭成员或数据归属人标识
+     */
+    private final String owner;
+    /**
+     * 导入文件中的原始商品名称
+     */
+    private final String productName;
+    /**
+     * 商品规格或 SKU 文本
+     */
+    private final String sku;
+    /**
+     * 一级消费分类
+     */
+    private final String category;
+    /**
+     * 二级消费分类
+     */
+    private final String subCategory;
+    /**
+     * 商品数量
+     */
+    private final Double quantity;
+    /**
+     * 商品数量单位
+     */
+    private final String unit;
+    /**
+     * 实付总金额
+     */
+    private final Double totalAmount;
+    /**
+     * 交易币种
+     */
+    private final String currency;
+
+    public RawPurchaseRecord(String orderTime,
+                             String platform,
+                             String owner,
+                             String productName,
+                             String sku,
+                             String category,
+                             String subCategory,
+                             Double quantity,
+                             String unit,
+                             Double totalAmount,
+                             String currency) {
+        this.orderTime = orderTime;
+        this.platform = platform;
+        this.owner = owner;
+        this.productName = productName;
+        this.sku = sku;
+        this.category = category;
+        this.subCategory = subCategory;
+        this.quantity = quantity;
+        this.unit = unit;
+        this.totalAmount = totalAmount;
+        this.currency = currency;
+    }
+
+    public String orderTime() {
+        return orderTime;
+    }
+
+    public String platform() {
+        return platform;
+    }
+
+    public String owner() {
+        return owner;
+    }
+
+    public String productName() {
+        return productName;
+    }
+
+    public String sku() {
+        return sku;
+    }
+
+    public String category() {
+        return category;
+    }
+
+    public String subCategory() {
+        return subCategory;
+    }
+
+    public Double quantity() {
+        return quantity;
+    }
+
+    public String unit() {
+        return unit;
+    }
+
+    public Double totalAmount() {
+        return totalAmount;
+    }
+
+    public String currency() {
+        return currency;
+    }
+
+    public String getOrderTime() {
+        return orderTime;
+    }
+
+    public String getPlatform() {
+        return platform;
+    }
+
+    public String getOwner() {
+        return owner;
+    }
+
+    public String getProductName() {
+        return productName;
+    }
+
+    public String getSku() {
+        return sku;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public String getSubCategory() {
+        return subCategory;
+    }
+
+    public Double getQuantity() {
+        return quantity;
+    }
+
+    public String getUnit() {
+        return unit;
+    }
+
+    public Double getTotalAmount() {
+        return totalAmount;
+    }
+
+    public String getCurrency() {
+        return currency;
+    }
+}
